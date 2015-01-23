@@ -41,14 +41,11 @@ install() {
 
 	# Don't bother with DSA, as it's either much more fragile or broken anyway
 	[[ -z "${dropbear_rsa_key}" ]] && {
-		# I assume ssh-keygen must be better at producing good rsa keys than
-		#  dropbearkey, so use that one. It's interactive-only, hence some hacks.
+		# I assume ssh-keygen from openssh should
+		#  be better at producing good rsa keys than dropbearkey, so use that one.
 		dropbear_rsa_key="$tmp"/key
 		rm -f "${dropbear_rsa_key}"
-		mkfifo "$tmp"/keygen.fifo
-		script -q -c "ssh-keygen -q -t rsa -f '${dropbear_rsa_key}' -N ''; echo >'${tmp}/keygen.fifo'"\
-			/dev/null </dev/null >"$tmp"/keygen.log 2>&1
-		: <"$tmp"/keygen.fifo
+		ssh-keygen -q -t rsa -f "${dropbear_rsa_key}" -N '' </dev/null
 		[[ -f "${dropbear_rsa_key}" && -f "${dropbear_rsa_key}".pub ]] || {
 			dfatal "Failed to generate ad-hoc rsa key, see: ${tmp}/keygen.log"
 			return 255
