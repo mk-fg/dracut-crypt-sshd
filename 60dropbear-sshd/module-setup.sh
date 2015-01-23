@@ -46,7 +46,7 @@ install() {
 		dropbear_rsa_key="$tmp"/key
 		rm -f "${dropbear_rsa_key}"
 		mkfifo "$tmp"/keygen.fifo
-		script -q -c "ssh-keygen -q -t rsa -f '${dropbear_rsa_key} -N ''; echo >'${tmp}/keygen.fifo'"\
+		script -q -c "ssh-keygen -q -t rsa -f '${dropbear_rsa_key}'; echo >'${tmp}/keygen.fifo'"\
 			/dev/null </dev/null >"$tmp"/keygen.log 2>&1
 		: <"$tmp"/keygen.fifo
 		[[ -f "${dropbear_rsa_key}" && -f "${dropbear_rsa_key}".pub ]] || {
