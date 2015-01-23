@@ -17,11 +17,33 @@ See dropbear(8) manpage for full list of supported restrictions there (which are
 fairly similar to openssh).
 
 
+### Obligatory warning
+
+Please think about your
+[threat model](https://en.wikipedia.org/wiki/Threat_model) first,
+and security/usability trade-off second.
+
+This module is very unlikely to help at all against malicious hosting provider
+or whatever three-letter-agency that will coerce it into cooperation, should it
+take interest in your poor machine - they can just extract keys from RAM image
+(especially if it's a virtualized container), backdoor kernel/initramfs and
+force a reboot, or do whatever else to get encryption keys via hardware/backdoor.
+
+It can help, as mentioned, against attacks on the data after you're done with it
+completely (i.e. shut the machine/container in question down for good), or
+against rather clumsy and incompetent "power off first and think second"
+attacks.
+
+If this benefit is worth the hassle of this extra ssh'ing, some maintenance
+overhead and the possibility of loosing the LUKS key/header (and all access to
+data with it), only then (I think) this module might be useful to you.
+
+
 ### Usage
 
-First of all, needs dropbear (at least sshd, I tested only version built without
-pam support, both static and shared should work) and gcc installed (to build
-auth.c tool).
+First of all, it needs dropbear (at least its sshd, I tested only version built
+without pam support, both static and shared should work) and gcc installed (to
+build auth.c tool).
 
 - Copy or symlink `60dropbear-sshd` into `/usr/lib/dracut/modules.d/`.
 
@@ -218,9 +240,6 @@ naming mixup, no traffic (e.g. unrelated connection issue), etc.
 
 - No idea how to sanely run `ssh-keygen` (openssh) from a script, maybe use
   openssl instead?
-
-- Some notes on threat model where such thing might be useful would be nice, so
-  people won't assume too much.
 
 
 ### Based on code, examples and ideas from
