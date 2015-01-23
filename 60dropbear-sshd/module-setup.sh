@@ -47,7 +47,7 @@ install() {
 		rm -f "${dropbear_rsa_key}"
 		ssh-keygen -q -t rsa -f "${dropbear_rsa_key}" -N '' </dev/null
 		[[ -f "${dropbear_rsa_key}" && -f "${dropbear_rsa_key}".pub ]] || {
-			dfatal "Failed to generate ad-hoc rsa key, see: ${tmp}/keygen.log"
+			dfatal "Failed to generate ad-hoc rsa key with ssh-keygen"
 			return 255
 		}
 		dinfo "Generated ad-hoc rsa key for dropbear sshd in initramfs"
