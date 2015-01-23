@@ -48,12 +48,11 @@ install() {
 		ssh-keygen -q -t rsa -f "${dropbear_rsa_key}" -N '' </dev/null
 		[[ -f "${dropbear_rsa_key}" && -f "${dropbear_rsa_key}".pub ]] || {
 			dfatal "Failed to generate ad-hoc rsa key with ssh-keygen"
+			rm -rf "$tmp"
 			return 255
 		}
 		dinfo "Generated ad-hoc rsa key for dropbear sshd in initramfs"
 
-		# Oh, wow, another tool that doesn't have "batch mode" in the same script.
-		# It's deeply concerning that security people don't seem to grasp such basic concepts.
 		mv "${dropbear_rsa_key}"{,.tmp}
 		dropbearconvert openssh dropbear "${dropbear_rsa_key}"{.tmp,} >/dev/null 2>&1\
 			|| { dfatal "dropbearconvert failed"; rm -rf "$tmp"; return 255; }
