@@ -38,6 +38,8 @@ If this benefit is worth the hassle of this extra ssh'ing, some maintenance
 overhead and the possibility of loosing the LUKS key/header (and all access to
 data with it), only then (I think) this module might be useful to you.
 
+Please also check out "Bad Things" section below before use.
+
 
 ### Usage
 
@@ -223,12 +225,22 @@ either enable "debug" dracut module or add `dracut_install netstat ip` line to
 naming mixup, no traffic (e.g. unrelated connection issue), etc.
 
 
-### Bad things
+### Bad Things
 
 - Does `gcc -std=gnu99 -O2 -Wall "$moddir"/auth.c -o "${tmp_file}"` for that
   "console_auth" binary on dracut run, that should probably be done when
   installed into dracut's modules.d or maybe there is good packaged substitute
   for that ad-hoc binary.
+
+- Has quite a few rather unnecessary assumptions about environment baked-in,
+  like /lib/libnss_files.so.2 path and so on.
+
+  Better way to handle these and compile whatever binaries would be allowing for
+  proper "./configure && make && make install", which I'm frankly don't know
+  enough about to support.
+
+  Luckily, there are people that do, so please look-at and/or use this fork that
+  seem to do things the right way: https://github.com/mdcurtis/dracut-earlyssh
 
 - Only tested with customized source-based distro
   ([Exherbo](http://exherbo.org/)), no idea how easy it is to use with generic
