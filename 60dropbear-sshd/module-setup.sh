@@ -79,6 +79,7 @@ install() {
 
 	# Generate hooks right here, with parameters baked-in
 	[[ -z "${dropbear_port}" ]] && dropbear_port=2222
+
 	cat >"$tmp"/sshd_run.sh <<EOF
 #!/bin/sh
 [ -f /tmp/dropbear.pid ]\
@@ -88,7 +89,9 @@ install() {
 	info 'sshd key bubblebabble: ${key_bb}'
 	/sbin/dropbear -E -m -s -j -k -p ${dropbear_port}\
 		-r /etc/dropbear/host_key -d - -P /tmp/dropbear.pid
+	dhclient -nw
 	[ \$? -gt 0 ] && info 'Dropbear sshd failed to start'
+	
 }
 EOF
 	cat >"$tmp"/sshd_kill.sh <<EOF
