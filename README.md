@@ -60,8 +60,11 @@ build auth.c tool).
 - See dracut.cmdline(7) manpage for info on how to setup "network" module
   (otherwise sshd is kinda useless).
 
-  Simpliest way might be just passing `ip=dhcp rd.neednet=1` on cmdline, if dhcp
+  Simpliest way might be just passing `ip=dhcp` on cmdline, if dhcp
   can assign predictable ip and pass proper routes.
+  
+  `rd.neednet = 1` is no longer needed with the new versions of Dracut, since Aug. 2012.
+  See `https://lists.fedorahosted.org/pipermail/anaconda-patches/2012-August/000679.html`
 
   Example of luks (uuid starts with "7a476ea0") + lvm (vg named "lvmcrypt", with lv
   there having fs with "root" label) + static-net (see manpage above for syntax)
