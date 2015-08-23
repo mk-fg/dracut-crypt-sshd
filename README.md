@@ -236,9 +236,13 @@ naming mixup, no traffic (e.g. unrelated connection issue), etc.
   proper `./configure && make && make install` process, which I don't know
   enough about to support.
 
-  Luckily, there are people that do, so please look-at and/or use this fork that
-  seem to do things the right way (and has quite a few other improvements):
-  https://github.com/mdcurtis/dracut-earlyssh
+  Luckily, there are people that do, check out these links for better integrated
+  versions of a similar thing:
+
+  * https://github.com/artem-sidorenko/dracut-earlyssh/
+  * https://github.com/haraldh/dracut/pull/43
+  * https://github.com/mdcurtis/dracut-earlyssh
+  * https://github.com/philfry/dracut-earlyssh
 
 - Only tested with customized source-based distro
   ([Exherbo](http://exherbo.org/)), no idea how easy it is to use with generic
