@@ -1,6 +1,10 @@
 dracut-crypt-sshd
 --------------------
 
+**Deprecation notice**: there is a much improved and generalized version of this
+module, maintained at [dracut-crypt-ssh/dracut-crypt-ssh](https://github.com/dracut-crypt-ssh/dracut-crypt-ssh/).
+This project here is mostly for historical reasons.
+
 [Dracut initramfs](https://dracut.wiki.kernel.org/index.php/Main_Page) module
 to start [Dropbear sshd](https://matt.ucc.asn.au/dropbear/dropbear.html)
 on early boot to enter encryption passphrase from across the internets or just
@@ -239,6 +243,7 @@ naming mixup, no traffic (e.g. unrelated connection issue), etc.
   Luckily, there are people that do, check out these links for better integrated
   versions of a similar thing:
 
+  * https://github.com/dracut-crypt-ssh/dracut-crypt-ssh/
   * https://github.com/artem-sidorenko/dracut-earlyssh/
   * https://github.com/haraldh/dracut/pull/43
   * https://github.com/mdcurtis/dracut-earlyssh
